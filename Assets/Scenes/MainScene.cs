@@ -14,10 +14,8 @@
 //    limitations under the License.
 
 using UnityEngine;
-using Fyber;
+using FyberPlugin;
 using System;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 /// <summary>
 /// The Main Scene,
@@ -26,50 +24,98 @@ using UnityEngine.UI;
 public class MainScene : MonoBehaviour {
 
     /// <summary>
-    /// The app id provided through the Fyber console
-    /// "109613" can be used a sample application.
+    /// The publisher id provided through the Fyber console
+    /// "12456" can be used a sample application.
     /// </summary>
     /// TODO replace with your own app id.
-    private const String PUBLISHER_APP_ID = "109613";
-    
+    private const String PUBLISHER_APP_ID = "12456";
+
+    private Ad ofwAd;
+
+    void OnEnable()
+    {
+        Debug.Log("OfferWallScene: OnEnable");
+        FyberCallback.AdAvailable += OnAdAvailable;
+        FyberCallback.AdNotAvailable += OnAdNotAvailable;
+        FyberCallback.RequestFail += OnRequestFail;
+    }
+
+    void OnDisable()
+    {
+        FyberCallback.AdAvailable -= OnAdAvailable;
+        FyberCallback.AdNotAvailable -= OnAdNotAvailable;
+        FyberCallback.RequestFail -= OnRequestFail;
+    }
+
+
+    private void OnAdAvailable(Ad ad)
+    {
+        Debug.Log("OnAdAvailable. Showing ofw");
+        ad.Start();
+    }
+
+    private void OnAdNotAvailable(AdFormat adFormat)
+    {
+        // not yet implemented
+        Debug.Log("OnAdNotAvailable: " + adFormat);
+    }
+
+    private void OnRequestFail(RequestError error)
+    {
+        // process error
+        Debug.Log("OnRequestError: " + error.Description);
+    }
 
     /// <summary>
     /// Start this instance.
     /// </summary>
-    void Start() {
-        setFairBidVersionTextView();
-        startFairBidSdk(PUBLISHER_APP_ID);
+    void Start()
+    {
+        setOfwSdkVersionTextView();
+        StartOfwEdgeSdk(PUBLISHER_APP_ID);
     }
 
     /// <summary>
     /// Changes the current scene.
     /// </summary>
     /// <param name="sceneName">Scene name.</param>
-    public void ChangeScene(string sceneName) {
-        SceneManager.LoadScene(sceneName);
+    public void ShowOfw()
+    {
+        Debug.Log("Getting ready to show OFW");
+        OfferWallRequester.Create().Request();              
     }
 
     /// <summary>
     /// Helper method for initializing the SDK with the given app id
     /// </summary>
     /// <param name="appId">The app id provided through the Fyber console</param>
-    private void startFairBidSdk(String appId) {
-        FairBid.Start(appId);
+    private void StartOfwEdgeSdk(String pulisherId) {
+        Fyber.With(pulisherId).Start();
+
+        // Alternative starts
+        
+        // chaining with all options                              
+        // Fyber.With(pulisherId).WithUserId(userId)
+        //                       .WithSecurityToken(securityToken)
+        //                       .WithParameters(paramaters)
+        //                       .Start();
+        
+        // instantitation of Fyber and Setting & Setting global settings                                  
+        // Fyber fyberSDK = Fyber.With(pulisherId);
+        // Settings fyberSDKSetting = fyberSDK.Start();
+        // fyberSDKSetting.NotifyUserOnReward(true)
+        //                .CloseOfferWallOnRedirect(true)
+        //                .AddParameters(paramters)
+        //                .AddParameter(parameter)
+        //                .UpdateUserId(newUserId);
     }
 
-    /// <summary>
-    /// Helper method for showing the test suite
-    /// </summary>
-    public void ShowTestSuite() {
-        FairBid.ShowTestSuite();
-    }
 
     /// <summary>
     /// Helper method for displaying the FairBid SDK version
     /// </summary>
-    private void setFairBidVersionTextView()
+    private void setOfwSdkVersionTextView()
     {
-        Text fairbidTextViewVersion = transform.Find("Background/FyberVersionTV").GetComponent<Text>();
-        fairbidTextViewVersion.text = "FYBER FAIRBID " + FairBid.Version;
+        // Not yet implemented
     }
 }
