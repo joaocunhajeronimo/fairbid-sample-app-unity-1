@@ -2,17 +2,78 @@ Fyber's FairBid - Sample Unity application
 ============================================
 This application demonstrates how to integrate Fyber's FairBid Mediation SDK using unity.
 
-#### Prerequisites
+# Prerequisites
+
 * Unity Editor 2018.*
 
+# Build & Run
 
-#### Navigating the sample code
+Before building, you'll need to import the FaidBid Unity Plugin.
+You can download it from [Fyber's dev portal](https://dev-unity.fyber.com/docs/integration).
+
+You're now ready to run the sample app.  
+Simply select the platform you wish to run the sample app on and click `Build and Run`. Unity will take care of the rest.
+
+
+# Mediation
+
+By default, the sample app does not have any mediated network integrated.
+
+The steps to integrated mediated network differ slightly depending on the platform:
+
+## Android
+
+In the [mainTemplate.gradle](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Assets/Plugins/Android/mainTemplate.gradle) Simply uncomment the commented out dependencies block for the networks you wish to integrate.
+
+### Android Manifest
+
+Some networks may require some extra manifest entries.  
+Double check with [Fyber's dev portal](https://fyber-mediation.fyber.com/docs/integrating-mediation) and the integrated network's documentation to make sure you have the required entries.
+
+Pay special attention to **AdMob** which will crash if certain configurations are missing.
+
+Also **Mintegral** still needs explicit declaration of Activities in the app's manifest.
+
+You can copy AdMob's and Mintegral entries from the [manifest template](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/AndroidManifest.xml.template)
+
+
+### iOS
+
+The simplest way to integrate mediated networks on iOS is to, first, Build the project.  
+Then, within the generated XCode project's path, create a `Podfile`.  
+In that file, declare all pod dependencies for the mediated networks you wish to integrate
+
+(You can copy the [Podfile.template](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Podfile.template) and adjust it to your needs).
+
+Run `pod install --repo-update`.  
+
+
+Open the generated XCode's `.workspace` and run your project.
+
+### Info.plist
+
+In case you're integrating **AdMob** you'll need to add a `Info.plist` entry to avoid a crash on start:
+
+
+`GADApplicationIdentifier` `>` `[APP_ID]` 
+
+Check our [dev portal](https://fyber-mediation.fyber.com/docs/admob#infoplist) for more information
+
+## Test Suite
+
+Regardless of the platform you're running the sample on, you can always use the Test Suite to double check all the mediated networks were integrated successfully.
+
+
+# Navigating the sample code
+
 * SDK Initialization is located in the [MainScene](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Assets/Scenes/MainScene.cs)
+  * This is where you can change the APP ID if you wish.
 * Requesting Banner Ads - [BannerScene](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Assets/Scenes/BannerScene.cs)
 * Requesting Interstitial Ads - [InterstitialScene](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Assets/Scenes/InterstitialScene.cs)
 * Requesting Rewarded Ads - [RewardedScene](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Assets/Scenes/RewardedScene.cs)
 
 #### Support and documentation
+
 Please visit our [documentation](https://dev-unity.fyber.com/docs)
 
 #### Project License
