@@ -30,8 +30,12 @@ public class MainScene : MonoBehaviour {
     /// "109613" can be used a sample application.
     /// </summary>
     /// TODO replace with your own app id.
+#if UNITY_IOS
     private const String PUBLISHER_APP_ID = "109613";
-    
+#elif UNITY_ANDROID
+    private const String PUBLISHER_APP_ID = "109613";
+#endif
+
 
     /// <summary>
     /// Start this instance.
