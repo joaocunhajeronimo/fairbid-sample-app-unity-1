@@ -14,7 +14,7 @@
 
     <!-- Some mediated networks do not include a manifest with permissions declaration within the aar they distribute. -->
 
-    <!-- The permissions below are required by some of mediated networks. Though they might still work without them, it is not guranteed -->
+    <!-- The permissions below are required by some of mediated networks. Though they might still work without them, it is not guaranteed -->
 
     <!-- Required by All TPNs -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -24,7 +24,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 
-    <!-- Optional permissions. We can leave these permissions out. However, adding them to your project will probably improve add delivery expericence -->
+    <!-- Optional permissions. We can leave these permissions out. However, adding them to your project will probably improve add delivery experience -->
 
     <!-- Recommended optional permissions required by FairBid 2. -->
 
@@ -46,7 +46,7 @@
                 android:value="true"/>
         </activity>
 
-        <!-- Recent versions of AdMob will crash at truntime if the following data is not present: -->
+        <!-- Recent versions of AdMob will crash at runtime if the following data is not present: -->
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true"/>
