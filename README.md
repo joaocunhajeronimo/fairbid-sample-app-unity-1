@@ -25,6 +25,8 @@ The steps to integrated mediated network differ slightly depending on the platfo
 
 In the [mainTemplate.gradle](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Assets/Plugins/Android/mainTemplate.gradle) Simply uncomment the commented out dependencies block for the networks you wish to integrate.
 
+Make sure the network versions you're declaring match the ones on the [dev portal](https://fyber-mediation.fyber.com/docs/supported-networks)
+
 ### Android Manifest
 
 Some networks may require some extra manifest entries.  
@@ -43,9 +45,16 @@ The simplest way to integrate mediated networks on iOS is to, first, Build the p
 Then, within the generated XCode project's path, create a `Podfile`.  
 In that file, declare all pod dependencies for the mediated networks you wish to integrate
 
+Make sure the network versions you're declaring match the ones on the [dev portal](https://fyber-mediation.fyber.com/docs/supported-networks)
+
 (You can copy the [Podfile.template](https://github.com/Heyzap/fairbid-sample-app-unity/blob/master/Podfile.template) and adjust it to your needs).
 
-Run `pod install --repo-update`.  
+
+Run:   
+
+`pod install --repo-update`.  
+
+**Note:** Check (cocoapods.org)[https://cocoapods.org/] for more info if you do not have cocoapods installed in your machine.
 
 
 Open the generated XCode's `.workspace` and run your project.
